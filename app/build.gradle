@@ -65,9 +65,15 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
+    implementation "androidx.compose.material3:material3:1.1.1"
+
+    implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation 'com.google.accompanist:accompanist-permissions:0.23.1'
 
     implementation("com.simonsickle:composed-barcodes:1.1.1")
+
+    // or new v2.0 alpha
+    implementation 'com.github.alexzhirkevich:custom-qr-generator:2.0.0-alpha01'
 
     implementation 'com.github.SmartToolFactory:Compose-Screenshot:1.0.3'
 
