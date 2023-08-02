@@ -51,7 +51,7 @@ fun WithLogoQrGenerator(navHostController: NavHostController) {
                 if (permissionState.hasPermission.not()) {
                     permissionState.launchPermissionRequest()
                 } else {
-                    qr.value.qrIcon?.let { Utils.saveImage(it.toBitmap(), qr.value.certId) }
+                    qr.value.qrIcon?.let { Utils.saveImage(it.toBitmap(500, 500), qr.value.certId) }
                     navHostController.popBackStack()
                 }
             }, modifier = Modifier

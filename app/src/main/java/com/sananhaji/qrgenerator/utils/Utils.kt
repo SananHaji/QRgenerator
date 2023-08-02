@@ -12,9 +12,12 @@ object Utils {
     val baseUrl = "https://www.hhm.az/sertifikat-yoxla?certId="
 
     fun saveImage(bitmap: Bitmap, name: String) {
-        val filePath = Environment.getExternalStorageDirectory().absolutePath +
-                "/QRCodeGenerator/"
-        val dir = File(filePath)
+        val destination: String =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath +
+                    "/QRCodeGenerator/"
+//        val filePath = Environment.getExternalStorageDirectory().absolutePath +
+//                "/QRCodeGenerator/"
+        val dir = File(destination)
         if (!dir.exists()) dir.mkdirs()
         val file = File(dir, "$name.png")
         val fOut = FileOutputStream(file)

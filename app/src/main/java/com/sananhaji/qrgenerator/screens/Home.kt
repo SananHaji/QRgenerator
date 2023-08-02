@@ -20,12 +20,12 @@ fun Home(navHostController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Button(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
-            onClick = { navHostController.navigate(NavVariables.single) }) { Text(text = "Single QR") }
-        Button(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
-            onClick = { navHostController.navigate(NavVariables.multi) }) { Text(text = "Multi QR") }
+//        Button(
+//            modifier = Modifier.fillMaxWidth().padding(16.dp),
+//            onClick = { navHostController.navigate(NavVariables.single) }) { Text(text = "Single QR") }
+//        Button(
+//            modifier = Modifier.fillMaxWidth().padding(16.dp),
+//            onClick = { navHostController.navigate(NavVariables.multi) }) { Text(text = "Multi QR") }
         Button(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
             onClick = { navHostController.navigate(NavVariables.withLogo) }) { Text(text = "With Logo") }
