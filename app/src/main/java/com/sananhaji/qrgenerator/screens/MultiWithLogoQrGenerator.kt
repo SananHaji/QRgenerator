@@ -1,6 +1,7 @@
 package com.sananhaji.qrgenerator.screens
 
 import android.Manifest
+import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.NavHostController
@@ -39,6 +41,7 @@ fun MultiWithLogoQrGenerator(navHostController: NavHostController) {
 
     val text = remember { mutableStateOf("") }
 
+    val context = LocalContext.current
     val qrList = remember { mutableStateListOf(QrCodeGenerate("")) }
 
     Column(
@@ -95,7 +98,7 @@ fun MultiWithLogoQrGenerator(navHostController: NavHostController) {
                     .align(Alignment.BottomStart)
                     .padding(16.dp),
                 onClick = {
-                    if (permissionState.hasPermission.not()) {
+                    if (permissionState.hasPermission.not() && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
                         permissionState.launchPermissionRequest()
                     } else {
                         qrList.toList()
