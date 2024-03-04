@@ -1,5 +1,6 @@
 package com.sananhaji.qrgenerator.screens
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,9 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.sananhaji.qrgenerator.utils.LogCollector
 
 @Composable
-fun Home(navHostController: NavHostController) {
+fun Home(activity: Activity, navHostController: NavHostController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -32,5 +34,8 @@ fun Home(navHostController: NavHostController) {
         Button(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
             onClick = { navHostController.navigate(NavVariables.withLogoMulti) }) { Text(text = "With Multi Logo") }
+        Button(
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            onClick = { LogCollector.dumpLogFile(activity)}) { Text(text = "Send logs") }
     }
 }

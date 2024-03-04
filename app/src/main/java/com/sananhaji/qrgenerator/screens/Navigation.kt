@@ -1,5 +1,6 @@
 package com.sananhaji.qrgenerator.screens
 
+import android.app.Activity
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,10 +16,10 @@ object NavVariables {
 
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(activity: Activity, navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = NavVariables.home) {
-        composable(NavVariables.home) { Home(navController) }
+        composable(NavVariables.home) { Home(activity, navController) }
         composable(NavVariables.single) { SingleQrGenerator(navController) }
         composable(NavVariables.multi) { MultiQrGenerator() }
         composable(NavVariables.withLogo) { WithLogoQrGenerator(navController) }
