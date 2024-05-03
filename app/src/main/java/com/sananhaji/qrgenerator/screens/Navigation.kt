@@ -12,17 +12,19 @@ object NavVariables {
     val multi = "multi"
     val withLogo = "withLogo"
     val withLogoMulti = "withLogoMulti"
+    val homeRelease = "homeRelease"
 }
 
 
 @Composable
 fun Navigation(activity: Activity, navController: NavHostController) {
 
-    NavHost(navController = navController, startDestination = NavVariables.home) {
+    NavHost(navController = navController, startDestination = NavVariables.homeRelease) {
         composable(NavVariables.home) { Home(activity, navController) }
         composable(NavVariables.single) { SingleQrGenerator(navController) }
         composable(NavVariables.multi) { MultiQrGenerator() }
         composable(NavVariables.withLogo) { WithLogoQrGenerator(navController) }
         composable(NavVariables.withLogoMulti) { MultiWithLogoQrGenerator(navController) }
+        composable(NavVariables.homeRelease) { HomeRelease(navController) }
     }
 }

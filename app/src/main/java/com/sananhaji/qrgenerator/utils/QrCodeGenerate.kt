@@ -3,14 +3,14 @@ package com.sananhaji.qrgenerator.utils
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
-import com.github.alexzhirkevich.customqrgenerator.style.Color
 import com.github.alexzhirkevich.customqrgenerator.vector.QrCodeDrawable
 import com.github.alexzhirkevich.customqrgenerator.vector.QrVectorOptions
-import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorBackground
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorBallShape
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorColor
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorColors
@@ -22,33 +22,42 @@ import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorPixelSha
 import com.github.alexzhirkevich.customqrgenerator.vector.style.QrVectorShapes
 import com.sananhaji.qrgenerator.R
 
-class QrCodeGenerate(var certId: String, var qrIcon: Drawable? = null) {
+class QrCodeGenerate(var text: String, var qrIcon: Drawable? = null, val startColor: Color) {
 
 
     @Composable
     fun BarcodeView() {
         val context = LocalContext.current
+        val colors = listOf(
+            0f to startColor.toArgb(),
+            1f to ContextCompat.getColor(context, R.color.social_up_blue),
+        )
         val options = QrVectorOptions.Builder().setPadding(.3f).setLogo(
             QrVectorLogo(
                 drawable = ContextCompat.getDrawable(
                     context,
-                    R.drawable.ic_logo_without_text_paint
+                    R.drawable.logoinrectangle
                 ),
-                size = .25f,
-                padding = QrVectorLogoPadding.Natural(.2f),
+                size = .33f,
+                padding = QrVectorLogoPadding.Natural(.1f),
                 shape = QrVectorLogoShape.Circle
-            )
-        ).setBackground(
-            QrVectorBackground(
-                drawable = ContextCompat.getDrawable(context, R.drawable.ic_qr_background),
             )
         ).setColors(
             QrVectorColors(
-                dark = QrVectorColor.Solid(
-                    ContextCompat.getColor(context, R.color.hhm_blue)
+                dark = QrVectorColor.LinearGradient(
+                    colors = colors,
+                    orientation = QrVectorColor.LinearGradient
+                        .Orientation.LeftDiagonal
                 ),
-                ball = QrVectorColor.Solid(
-                    ContextCompat.getColor(context, R.color.hhm_red)
+                ball = QrVectorColor.LinearGradient(
+                    colors = colors,
+                    orientation = QrVectorColor.LinearGradient
+                        .Orientation.LeftDiagonal
+                ),
+                frame = QrVectorColor.LinearGradient(
+                    colors = colors,
+                    orientation = QrVectorColor.LinearGradient
+                        .Orientation.LeftDiagonal
                 )
             )
         ).setShapes(
@@ -60,7 +69,7 @@ class QrCodeGenerate(var certId: String, var qrIcon: Drawable? = null) {
         ).build()
 
         val drawable: Drawable = QrCodeDrawable(
-            { Utils.baseUrl + certId }, options
+            { text }, options
         )
         qrIcon = drawable
         Image(

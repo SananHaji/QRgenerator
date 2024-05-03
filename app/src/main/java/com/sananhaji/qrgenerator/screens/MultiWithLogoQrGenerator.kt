@@ -42,7 +42,7 @@ fun MultiWithLogoQrGenerator(navHostController: NavHostController) {
     val text = remember { mutableStateOf("") }
 
     val context = LocalContext.current
-    val qrList = remember { mutableStateListOf(QrCodeGenerate("")) }
+    val qrList = remember { mutableStateListOf(QrCodeGenerate("", startColor = Color.Green)) }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -60,9 +60,9 @@ fun MultiWithLogoQrGenerator(navHostController: NavHostController) {
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
                 items(qrList) { qr ->
-                    if (qr.certId.isNotEmpty()) {
+                    if (qr.text.isNotEmpty()) {
                         qr.BarcodeView()
-                        Text(text = qr.certId)
+                        Text(text = qr.text)
                         Divider(color = Color.Blue, thickness = 1.dp)
                     }
                 }
@@ -75,7 +75,7 @@ fun MultiWithLogoQrGenerator(navHostController: NavHostController) {
                 onClick = {
                     val ids = text.value.split(",")
                     qrList.clear()
-                    qrList.addAll(ids.map { QrCodeGenerate(it) })
+                    qrList.addAll(ids.map { QrCodeGenerate(text= it, startColor = Color.Green) })
                 },
                 containerColor = Color.Green,
                 shape = RoundedCornerShape(8.dp),
@@ -106,7 +106,7 @@ fun MultiWithLogoQrGenerator(navHostController: NavHostController) {
                                 it.qrIcon?.let { it1 ->
                                     Utils.saveImage(
                                         it1.toBitmap(500, 500),
-                                        it.certId
+                                        it.text
                                     )
                                 }
                             }
