@@ -98,7 +98,7 @@ fun MultiWithLogoQrGenerator(navHostController: NavHostController) {
                     .align(Alignment.BottomStart)
                     .padding(16.dp),
                 onClick = {
-                    if (permissionState.hasPermission.not() && Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && permissionState.hasPermission.not()) {
                         permissionState.launchPermissionRequest()
                     } else {
                         qrList.toList()

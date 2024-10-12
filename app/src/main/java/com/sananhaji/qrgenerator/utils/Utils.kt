@@ -11,6 +11,9 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 object Utils {
@@ -28,7 +31,11 @@ object Utils {
 //                "/QRCodeGenerator/"
             val dir = File(destination)
             if (!dir.exists()) dir.mkdirs()
-            val file = File(dir, "$name.png")
+            var file = File(dir, "$name.png")
+            if (file.exists()) {
+                val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+                file = File(dir, "${name}_$timestamp.png")
+            }
             val fOut = FileOutputStream(file)
 
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut)

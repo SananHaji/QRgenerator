@@ -14,10 +14,13 @@ import androidx.navigation.compose.rememberNavController
 import com.sananhaji.qrgenerator.screens.Navigation
 import com.sananhaji.qrgenerator.screens.SingleQrGenerator
 import com.sananhaji.qrgenerator.ui.theme.QRgeneratorTheme
+import io.gleap.Gleap
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Gleap.initialize("7dCm2vCO2gaJsB6P3IqGOx8xhuFlYbQJ", application) // For Kotlin replace this with application
+
         setContent {
             val navController = rememberNavController()
 

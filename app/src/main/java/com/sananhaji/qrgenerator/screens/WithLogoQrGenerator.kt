@@ -1,6 +1,7 @@
 package com.sananhaji.qrgenerator.screens
 
 import android.Manifest
+import android.os.Build
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -48,7 +49,7 @@ fun WithLogoQrGenerator(navHostController: NavHostController) {
 
         Button(
             onClick = {
-                if (permissionState.hasPermission.not()) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && permissionState.hasPermission.not()) {
                     permissionState.launchPermissionRequest()
                 } else {
                     qr.value.qrIcon?.let { Utils.saveImage(it.toBitmap(500, 500), qr.value.certId) }
