@@ -2,6 +2,7 @@ package com.sananhaji.qrgenerator.screens
 
 import android.Manifest
 import android.os.Build
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Create
 import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -21,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +35,9 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import com.sananhaji.qrgenerator.utils.QrCodeGenerate
 import com.sananhaji.qrgenerator.utils.Utils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -40,95 +46,121 @@ fun MultiWithLogoQrGenerator(navHostController: NavHostController) {
         rememberPermissionState(permission = Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     val text = remember { mutableStateOf("") }
+    val isLoading = remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
 
     val context = LocalContext.current
     val qrList = remember { mutableStateListOf(QrCodeGenerate("")) }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        OutlinedTextField(
-            value = text.value,
-            onValueChange = { text.value = it },
-            label = { Text(text = "Multi Certificate IDs") },
-            placeholder = { Text(text = "${Utils.placeHolder}, ${Utils.placeHolder}, ${Utils.placeHolder}") }
-        )
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            OutlinedTextField(
+                value = text.value,
+                onValueChange = { text.value = it },
+                label = { Text(text = "Multi Certificate IDs") },
+                placeholder = { Text(text = "${Utils.placeHolder}, ${Utils.placeHolder}, ${Utils.placeHolder}") }
+            )
 
-        Text(text = "Separate IDs with comma")
+            Text(text = "Separate IDs with comma")
 
-        Box(modifier = Modifier.fillMaxSize()) {
-            LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
-                items(qrList) { qr ->
-                    if (qr.certId.isNotEmpty()) {
-                        qr.BarcodeView()
-                        Text(text = qr.certId)
-                        Divider(color = Color.Blue, thickness = 1.dp)
+            Box(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
+                    items(qrList) { qr ->
+                        if (qr.certId.isNotEmpty()) {
+                            qr.BarcodeView()
+                            Text(text = qr.certId)
+                            Divider(color = Color.Blue, thickness = 1.dp)
+                        }
                     }
                 }
-            }
 
-            ExtendedFloatingActionButton(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(16.dp),
-                onClick = {
-                    val ids = text.value.split(",")
-                    qrList.clear()
-                    qrList.addAll(ids.map { QrCodeGenerate(it) })
-                },
-                containerColor = Color.Green,
-                shape = RoundedCornerShape(8.dp),
-                text = {
-                    Text(
-                        text = "Create QRs",
-                        color = Color.White
-                    )
-                },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Rounded.Create,
-                        contentDescription = "Create QRs",
-                        tint = Color.White,
-                    )
-                }
-            )
-            ExtendedFloatingActionButton(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(16.dp),
-                onClick = {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && permissionState.hasPermission.not()) {
-                        permissionState.launchPermissionRequest()
-                    } else {
-                        qrList.toList()
-                            .onEach {
-                                it.qrIcon?.let { it1 ->
-                                    Utils.saveImage(
-                                        it1.toBitmap(500, 500),
-                                        it.certId
-                                    )
+                ExtendedFloatingActionButton(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(16.dp),
+                    onClick = {
+                        val ids = text.value.split(",")
+                        qrList.clear()
+                        qrList.addAll(ids.map { QrCodeGenerate(it) })
+                    },
+                    containerColor = Color.Green,
+                    shape = RoundedCornerShape(8.dp),
+                    text = {
+                        Text(
+                            text = "Create QRs",
+                            color = Color.White
+                        )
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Rounded.Create,
+                            contentDescription = "Create QRs",
+                            tint = Color.White,
+                        )
+                    }
+                )
+                ExtendedFloatingActionButton(
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(16.dp),
+                    onClick = {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && permissionState.hasPermission.not()) {
+                            permissionState.launchPermissionRequest()
+                        } else {
+                            scope.launch {
+                                isLoading.value = true
+                                var allSuccess = true
+                                withContext(Dispatchers.IO) {
+                                    qrList.toList()
+                                        .onEach {
+                                            it.qrIcon?.let { it1 ->
+                                                val res = Utils.saveImage(
+                                                    context,
+                                                    it1.toBitmap(500, 500),
+                                                    it.certId
+                                                )
+                                                if (!res) allSuccess = false
+                                            }
+                                        }
+                                }
+                                isLoading.value = false
+                                if (allSuccess) {
+                                    navHostController.popBackStack()
                                 }
                             }
-                        navHostController.popBackStack()
+                        }
+                    },
+                    containerColor = Color.Green,
+                    shape = RoundedCornerShape(8.dp),
+                    text = {
+                        Text(
+                            text = "Save QRs",
+                            color = Color.White
+                        )
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Rounded.Star,
+                            contentDescription = "Save QRs",
+                            tint = Color.White,
+                        )
                     }
-                },
-                containerColor = Color.Green,
-                shape = RoundedCornerShape(8.dp),
-                text = {
-                    Text(
-                        text = "Save QRs",
-                        color = Color.White
-                    )
-                },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Rounded.Star,
-                        contentDescription = "Save QRs",
-                        tint = Color.White,
-                    )
-                }
-            )
+                )
+            }
+        }
+
+        if (isLoading.value) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.5f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = Color.White)
+            }
         }
     }
 }

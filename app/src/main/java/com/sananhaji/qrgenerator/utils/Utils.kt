@@ -22,27 +22,29 @@ object Utils {
     val label = "Sertifikat ID"
     val baseUrl = "https://www.hhm.az/sertifikat-yoxla?certId="
 
-    fun saveImage(bitmap: Bitmap, name: String) {
-        try {
-            val destination: String =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath +
-                        "/QRCodeGenerator/"
-//        val filePath = Environment.getExternalStorageDirectory().absolutePath +
-//                "/QRCodeGenerator/"
-            val dir = File(destination)
-            if (!dir.exists()) dir.mkdirs()
-            var file = File(dir, "$name.png")
-            if (file.exists()) {
-                val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-                file = File(dir, "${name}_$timestamp.png")
+    fun saveImage(context: Context, bitmap: Bitmap, name: String): Boolean {
+        return try {
+            val resolver = context.contentResolver
+            val contentValues = android.content.ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, "$name.png")
+                put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/QRCodeGenerator")
+                }
             }
-            val fOut = FileOutputStream(file)
 
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut)
-            fOut.flush()
-            fOut.close()
+            val imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            if (imageUri != null) {
+                resolver.openOutputStream(imageUri)?.use { outputStream ->
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                }
+                true
+            } else {
+                false
+            }
         } catch (e: Exception) {
             Log.e("TAGTAGTAG", "saveImage: ", e)
+            false
         }
     }
 
