@@ -1,3 +1,73 @@
 <resources>
-    <string name="app_name">QRgenerator</string>
+    <string name="app_name">QR Generator</string>
+
+    <string name="home_title">Create a QR code</string>
+    <string name="home_simple_title">Simple QR</string>
+    <string name="home_simple_description">Type text or a link and get a classic black and white code.</string>
+    <string name="home_custom_title">Custom QR</string>
+    <string name="home_custom_description">Colors, shapes, a logo in the center and a background picture.</string>
+    <string name="home_templates_title">Templates</string>
+    <string name="home_privacy_policy">Privacy policy</string>
+    <string name="home_template_description">Type an ID — style and link are filled in for you.</string>
+
+    <string name="editor_title_simple">Simple QR</string>
+    <string name="editor_title_custom">Custom QR</string>
+    <string name="editor_content_label">Text or link</string>
+    <string name="editor_content_placeholder" translatable="false">https://example.com</string>
+    <string name="editor_preview_empty">Type something to see your QR code</string>
+    <string name="editor_preview_too_long">The text is too long for a QR code</string>
+    <string name="editor_customize_show">Customize</string>
+    <string name="editor_customize_hide">Hide customization</string>
+    <string name="editor_reset">Reset to simple</string>
+
+    <string name="section_presets">Presets</string>
+    <string name="section_colors">Colors</string>
+    <string name="section_shapes">Shapes</string>
+    <string name="section_logo">Center logo</string>
+    <string name="section_background">Background</string>
+
+    <string name="preset_simple">Simple</string>
+
+    <string name="color_pixels">Code</string>
+    <string name="color_eye_ball">Eye center</string>
+    <string name="color_eye_frame">Eye frame</string>
+    <string name="color_background">Background</string>
+    <string name="color_dialog_title">Pick a color</string>
+    <string name="color_transparent">Transparent</string>
+
+    <string name="shape_pixels">Pixels</string>
+    <string name="shape_eye_ball">Eye center</string>
+    <string name="shape_eye_frame">Eye frame</string>
+    <string name="shape_logo">Logo shape</string>
+    <string name="shape_square">Square</string>
+    <string name="shape_rounded">Rounded</string>
+    <string name="shape_circle">Circle</string>
+    <string name="shape_diamond">Diamond</string>
+    <string name="shape_star">Star</string>
+    <string name="shape_vertical">Vertical</string>
+    <string name="shape_horizontal">Horizontal</string>
+
+    <string name="image_pick">Choose picture</string>
+    <string name="image_change">Change</string>
+    <string name="image_remove">Remove</string>
+    <string name="image_none">No picture</string>
+    <string name="image_selected">Picture selected</string>
+    <string name="logo_size">Logo size</string>
+    <string name="margin">Margin</string>
+    <string name="highlight_anchors">Keep eyes readable on the picture</string>
+
+    <string name="action_save">Save to gallery</string>
+    <string name="action_share">Share</string>
+    <string name="action_save_all">Save all</string>
+    <string name="action_generate">Generate</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="share_chooser_title">Share QR code</string>
+    <string name="saved_one">Saved to Pictures/QRCodeGenerator</string>
+    <string name="saved_many">Saved %1$d of %2$d codes</string>
+    <string name="save_failed">Could not save the picture</string>
+    <string name="permission_needed">Storage permission is needed to save on this Android version</string>
+
+    <string name="template_input_hint">One or more IDs, separated by commas or new lines</string>
+    <string name="template_empty">Type IDs and press Generate</string>
 </resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="hhm_template_name">HHM sertifikatı</string>
+    <string name="hhm_template_input_label">Sertifikat ID</string>
+</resources>

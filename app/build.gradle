@@ -1,16 +1,41 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
 }
+
+// Crashlytics reads the Firebase project from app/google-services.json, which must list every
+// application id that is built (com.sananhaji.qrgenerator and, with the HHM switch on, its .hhm id).
+// Until the file is added the plugins stay off and the SDK starts without a project, so it reports nothing.
+if (file('google-services.json').exists()) {
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.firebase.crashlytics'
+}
+
+// Upload key for Play App Signing. signing/keystore.properties and the keystore are not in git;
+// without them release builds are produced unsigned.
+def releaseSigningFile = rootProject.file('signing/keystore.properties')
+def releaseSigning = null
+if (releaseSigningFile.exists()) {
+    releaseSigning = new Properties()
+    releaseSigningFile.withInputStream { releaseSigning.load(it) }
+}
+
+// Switch for the HHM company build; see gradle.properties.
+def hhmEnabled = providers.gradleProperty('qrgenerator.hhm.enabled')
+        .map { it.toBoolean() }
+        .getOrElse(false)
 
 android {
     namespace 'com.sananhaji.qrgenerator'
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.sananhaji.qrgenerator"
         minSdk 24
-        targetSdk 34
+        targetSdk 36
         versionCode 1
         versionName "1.0"
 
@@ -20,74 +45,95 @@ android {
         }
     }
 
+    // store: public Play Store app. hhm: company build with the certificate template.
+    // Without the hhm flavor its source set (src/hhm) is not compiled or packaged at all.
+    flavorDimensions = ["distribution"]
+    productFlavors {
+        store {
+            dimension "distribution"
+        }
+        if (hhmEnabled) {
+            hhm {
+                dimension "distribution"
+                applicationIdSuffix ".hhm"
+                versionNameSuffix "-hhm"
+            }
+        }
+    }
+
+    signingConfigs {
+        if (releaseSigning != null) {
+            release {
+                storeFile rootProject.file(releaseSigning['storeFile'])
+                storePassword releaseSigning['storePassword']
+                keyAlias releaseSigning['keyAlias']
+                keyPassword releaseSigning['keyPassword']
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (releaseSigning != null) {
+                signingConfig signingConfigs.release
+            }
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     buildFeatures {
         compose true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.5.2'
-    }
-    packagingOptions {
+    packaging {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
 }
 
-configurations.all {
-    resolutionStrategy {
-        force("com.squareup.okhttp3:okhttp:4.12.0")
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+        // Resource and color annotations on data class properties apply to the field too (future Kotlin default).
+        freeCompilerArgs.add('-Xannotation-default-target=param-property')
     }
 }
 
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.5.1'
-    implementation platform('androidx.compose:compose-bom:2022.10.00')
+    implementation platform('androidx.compose:compose-bom:2025.09.01')
+    implementation 'androidx.core:core-ktx:1.17.0'
+    implementation 'androidx.activity:activity-compose:1.11.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.9.4'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4'
+    implementation 'androidx.navigation:navigation-compose:2.8.8'
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
+    // material3 1.4 no longer brings the icons in transitively.
+    implementation 'androidx.compose.material:material-icons-core'
+
+    implementation 'com.github.alexzhirkevich:custom-qr-generator:2.0.0-alpha01'
+    // Declared directly because QrRenderer catches its WriterException; the library exposes it only at runtime.
+    implementation 'com.google.zxing:core:3.5.1'
+
+    implementation 'com.github.skydoves:colorpicker-compose:1.0.7'
+
+    implementation platform('com.google.firebase:firebase-bom:34.19.0')
+    implementation 'com.google.firebase:firebase-crashlytics'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
+    androidTestImplementation platform('androidx.compose:compose-bom:2025.09.01')
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
-
-    implementation "androidx.compose.material3:material3:1.1.1"
-
-    implementation("androidx.navigation:navigation-compose:2.6.0")
-    implementation 'com.google.accompanist:accompanist-permissions:0.23.1'
-
-    implementation("com.simonsickle:composed-barcodes:1.1.1")
-
-    // or new v2.0 alpha
-    implementation 'com.github.alexzhirkevich:custom-qr-generator:2.0.0-alpha01'
-
-    implementation 'com.github.SmartToolFactory:Compose-Screenshot:1.0.3'
-
-    implementation 'com.github.prongbang:android-image-saver:1.0.1'
-
-    implementation("com.github.skydoves:colorpicker-compose:1.0.7")
-
-    implementation group: 'io.gleap', name: 'gleap-android-sdk', version: '13.6.1'
-
 }
