@@ -6,6 +6,19 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.compose'
 }
 
+// Crashlytics reads the Firebase project from app/google-services.json, which must list every
+// application id that is built (com.sananhaji.qrgenerator and, with the HHM switch on, its .hhm id).
+// Until the file is added the plugins stay off and the SDK starts without a project, so it reports nothing.
+if (file('google-services.json').exists()) {
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.firebase.crashlytics'
+}
+
+// Switch for the HHM company build; see gradle.properties.
+def hhmEnabled = providers.gradleProperty('qrgenerator.hhm.enabled')
+        .map { it.toBoolean() }
+        .getOrElse(false)
+
 android {
     namespace 'com.sananhaji.qrgenerator'
     compileSdk 36
@@ -24,15 +37,18 @@ android {
     }
 
     // store: public Play Store app. hhm: company build with the certificate template.
+    // Without the hhm flavor its source set (src/hhm) is not compiled or packaged at all.
     flavorDimensions = ["distribution"]
     productFlavors {
         store {
             dimension "distribution"
         }
-        hhm {
-            dimension "distribution"
-            applicationIdSuffix ".hhm"
-            versionNameSuffix "-hhm"
+        if (hhmEnabled) {
+            hhm {
+                dimension "distribution"
+                applicationIdSuffix ".hhm"
+                versionNameSuffix "-hhm"
+            }
         }
     }
 
@@ -64,12 +80,6 @@ kotlin {
     }
 }
 
-configurations.all {
-    resolutionStrategy {
-        force("com.squareup.okhttp3:okhttp:4.12.0")
-    }
-}
-
 
 dependencies {
 
@@ -92,7 +102,8 @@ dependencies {
 
     implementation 'com.github.skydoves:colorpicker-compose:1.0.7'
 
-    implementation group: 'io.gleap', name: 'gleap-android-sdk', version: '13.6.1'
+    implementation platform('com.google.firebase:firebase-bom:34.19.0')
+    implementation 'com.google.firebase:firebase-crashlytics'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

@@ -11,7 +11,7 @@ import com.sananhaji.qrgenerator.ui.home.HomeScreen
 import com.sananhaji.qrgenerator.ui.template.TemplateBatchScreen
 
 @Composable
-fun AppNavigation(onSendLogs: () -> Unit) {
+fun AppNavigation() {
     val navController = rememberNavController()
 
     NavHost(
@@ -23,7 +23,6 @@ fun AppNavigation(onSendLogs: () -> Unit) {
                 onSimple = { navController.navigate(Routes.editor(customize = false)) },
                 onCustom = { navController.navigate(Routes.editor(customize = true)) },
                 onTemplate = { navController.navigate(Routes.template(it.id)) },
-                onSendLogs = onSendLogs,
             )
         }
         composable(

@@ -8,7 +8,6 @@
     <string name="home_custom_description">Colors, shapes, a logo in the center and a background picture.</string>
     <string name="home_templates_title">Templates</string>
     <string name="home_template_description">Type an ID — style and link are filled in for you.</string>
-    <string name="home_send_logs">Send logs</string>
 
     <string name="editor_title_simple">Simple QR</string>
     <string name="editor_title_custom">Custom QR</string>

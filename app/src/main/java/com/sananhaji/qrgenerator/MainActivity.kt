@@ -10,8 +10,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.sananhaji.qrgenerator.ui.navigation.AppNavigation
 import com.sananhaji.qrgenerator.ui.theme.QRgeneratorTheme
-import com.sananhaji.qrgenerator.utils.LogCollector
-import io.gleap.Gleap
 
 class MainActivity : ComponentActivity() {
 
@@ -19,7 +17,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // Android 15+ draws every target-35 app edge to edge; doing it on all versions keeps the look the same.
         enableEdgeToEdge()
-        Gleap.initialize(GLEAP_API_KEY, application)
 
         setContent {
             QRgeneratorTheme {
@@ -27,14 +24,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    AppNavigation(onSendLogs = { LogCollector.dumpLogFile(this) })
+                    AppNavigation()
                 }
             }
         }
-    }
-
-    private companion object {
-
-        const val GLEAP_API_KEY = "7dCm2vCO2gaJsB6P3IqGOx8xhuFlYbQJ"
     }
 }

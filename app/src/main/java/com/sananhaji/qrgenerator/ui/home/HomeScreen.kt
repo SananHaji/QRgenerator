@@ -11,7 +11,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -29,7 +28,6 @@ fun HomeScreen(
     onSimple: () -> Unit,
     onCustom: () -> Unit,
     onTemplate: (QrTemplate) -> Unit,
-    onSendLogs: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -65,9 +63,6 @@ fun HomeScreen(
                     onClick = { onTemplate(template) },
                 )
             }
-        }
-        if (FlavorConfig.LOG_SENDER_ENABLED) {
-            TextButton(onClick = onSendLogs) { Text(stringResource(R.string.home_send_logs)) }
         }
     }
 }
