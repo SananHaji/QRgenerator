@@ -25,7 +25,7 @@ object LogCollector {
             Runtime.getRuntime().exec(command)
             sendMail(context, file)
         } catch (e: Exception) {
-            Log.d("Error send Log", e.localizedMessage)
+            Log.e(TAG, "Sending logs failed", e)
         }
     }
 
@@ -34,11 +34,8 @@ object LogCollector {
             type = "vnd.android.cursor.dir/email"
             putExtra(Intent.EXTRA_SUBJECT, "Local Log : " + getTime())
             putExtra(
-                Intent.EXTRA_STREAM, FileProvider.getUriForFile(
-                    activity.applicationContext,
-                    "com.sananhaji.qrgenerator.provider",
-                    file
-                )
+                Intent.EXTRA_STREAM,
+                FileProvider.getUriForFile(activity, activity.fileProviderAuthority, file),
             )
         }
         activity.startActivity(Intent.createChooser(emailIntent, "Send file"))
@@ -50,5 +47,7 @@ object LogCollector {
     }
 
     private const val FILE_NAME = "appLog.log"
+
+    private const val TAG = "LogCollector"
 }
 

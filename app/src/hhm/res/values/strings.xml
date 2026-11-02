@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HHM QR</string>
+    <string name="hhm_template_name">HHM certificate</string>
+    <string name="hhm_template_input_label">Certificate ID</string>
+</resources>

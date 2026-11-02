@@ -1,0 +1,70 @@
+<resources>
+    <string name="home_title">QR kod yarat</string>
+    <string name="home_simple_title">Sadə QR</string>
+    <string name="home_simple_description">Mətn və ya link yaz, klassik qara-ağ kod al.</string>
+    <string name="home_custom_title">Xüsusi QR</string>
+    <string name="home_custom_description">Rənglər, formalar, mərkəzdə loqo və fon şəkli.</string>
+    <string name="home_templates_title">Şablonlar</string>
+    <string name="home_template_description">ID yaz — dizayn və link avtomatik doldurulur.</string>
+    <string name="home_send_logs">Logları göndər</string>
+
+    <string name="editor_title_simple">Sadə QR</string>
+    <string name="editor_title_custom">Xüsusi QR</string>
+    <string name="editor_content_label">Mətn və ya link</string>
+    <string name="editor_preview_empty">QR kodu görmək üçün nəsə yaz</string>
+    <string name="editor_preview_too_long">Mətn QR kod üçün çox uzundur</string>
+    <string name="editor_customize_show">Fərdiləşdir</string>
+    <string name="editor_customize_hide">Fərdiləşdirməni gizlət</string>
+    <string name="editor_reset">Sadəyə qaytar</string>
+
+    <string name="section_presets">Hazır stillər</string>
+    <string name="section_colors">Rənglər</string>
+    <string name="section_shapes">Formalar</string>
+    <string name="section_logo">Mərkəzdə loqo</string>
+    <string name="section_background">Fon</string>
+
+    <string name="preset_simple">Sadə</string>
+
+    <string name="color_pixels">Kod</string>
+    <string name="color_eye_ball">Göz mərkəzi</string>
+    <string name="color_eye_frame">Göz çərçivəsi</string>
+    <string name="color_background">Fon</string>
+    <string name="color_dialog_title">Rəng seç</string>
+    <string name="color_transparent">Şəffaf</string>
+
+    <string name="shape_pixels">Piksellər</string>
+    <string name="shape_eye_ball">Göz mərkəzi</string>
+    <string name="shape_eye_frame">Göz çərçivəsi</string>
+    <string name="shape_logo">Loqo forması</string>
+    <string name="shape_square">Kvadrat</string>
+    <string name="shape_rounded">Yumru künc</string>
+    <string name="shape_circle">Dairə</string>
+    <string name="shape_diamond">Romb</string>
+    <string name="shape_star">Ulduz</string>
+    <string name="shape_vertical">Şaquli</string>
+    <string name="shape_horizontal">Üfüqi</string>
+
+    <string name="image_pick">Şəkil seç</string>
+    <string name="image_change">Dəyiş</string>
+    <string name="image_remove">Sil</string>
+    <string name="image_none">Şəkil yoxdur</string>
+    <string name="image_selected">Şəkil seçilib</string>
+    <string name="logo_size">Loqo ölçüsü</string>
+    <string name="margin">Kənar boşluq</string>
+    <string name="highlight_anchors">Gözləri şəkil üzərində oxunaqlı saxla</string>
+
+    <string name="action_save">Qalereyaya yadda saxla</string>
+    <string name="action_share">Paylaş</string>
+    <string name="action_save_all">Hamısını yadda saxla</string>
+    <string name="action_generate">Yarat</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Ləğv et</string>
+    <string name="share_chooser_title">QR kodu paylaş</string>
+    <string name="saved_one">Pictures/QRCodeGenerator qovluğuna yadda saxlandı</string>
+    <string name="saved_many">%2$d koddan %1$d yadda saxlandı</string>
+    <string name="save_failed">Şəkli yadda saxlamaq olmadı</string>
+    <string name="permission_needed">Bu Android versiyasında yadda saxlamaq üçün yaddaş icazəsi lazımdır</string>
+
+    <string name="template_input_hint">Bir və ya bir neçə ID, vergül və ya yeni sətirlə ayır</string>
+    <string name="template_empty">ID-ləri yaz və Yarat düyməsini bas</string>
+</resources>
