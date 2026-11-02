@@ -8,6 +8,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.sananhaji.qrgenerator.analytics.AnalyticsEvent
+import com.sananhaji.qrgenerator.analytics.AppAnalytics
+import com.sananhaji.qrgenerator.analytics.FirebaseAppAnalytics
 import com.sananhaji.qrgenerator.qr.export.QrGallerySaver
 import com.sananhaji.qrgenerator.qr.image.QrImageLoader
 import com.sananhaji.qrgenerator.qr.model.QrStyle
@@ -32,6 +35,8 @@ class QrEditorViewModel(application: Application) : AndroidViewModel(application
     private val renderer = QrRenderer(QrImageLoader(application))
 
     private val gallerySaver = QrGallerySaver(application)
+
+    private val analytics: AppAnalytics = FirebaseAppAnalytics(application)
 
     var content by mutableStateOf("")
         private set
@@ -72,10 +77,12 @@ class QrEditorViewModel(application: Application) : AndroidViewModel(application
         gallerySaver.save(
             bitmap = bitmap,
             name = QrFileName.timestamped(),
-        )
+        ).also { saved -> if (saved) analytics.log(AnalyticsEvent.QrSaved(style)) }
     }
 
-    suspend fun exportForShare(): Bitmap? = runBusy { exportBitmap() }
+    suspend fun exportForShare(): Bitmap? = runBusy {
+        exportBitmap()?.also { analytics.log(AnalyticsEvent.QrShared(style)) }
+    }
 
     private suspend fun exportBitmap(): Bitmap? =
         content.takeIf { it.isNotBlank() }?.let {

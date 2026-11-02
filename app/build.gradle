@@ -4,14 +4,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.plugin.compose'
-}
-
-// Crashlytics reads the Firebase project from app/google-services.json, which must list every
-// application id that is built (com.sananhaji.qrgenerator and, with the HHM switch on, its .hhm id).
-// Until the file is added the plugins stay off and the SDK starts without a project, so it reports nothing.
-if (file('google-services.json').exists()) {
-    apply plugin: 'com.google.gms.google-services'
-    apply plugin: 'com.google.firebase.crashlytics'
+    // Firebase project qr-generator-41249; app/google-services.json lists both the store and the .hhm id.
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 // Upload key for Play App Signing. signing/keystore.properties and the keystore are not in git;
@@ -36,8 +31,9 @@ android {
         applicationId "com.sananhaji.qrgenerator"
         minSdk 24
         targetSdk 36
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
+        manifestPlaceholders = [firebaseCollectionEnabled: "true"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -73,6 +69,10 @@ android {
     }
 
     buildTypes {
+        // Keep test runs out of the production Crashlytics and Analytics data.
+        debug {
+            manifestPlaceholders = [firebaseCollectionEnabled: "false"]
+        }
         release {
             minifyEnabled true
             shrinkResources true
@@ -128,6 +128,7 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:34.19.0')
     implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
