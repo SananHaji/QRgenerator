@@ -14,3 +14,5 @@
 .cxx
 local.properties
 .idea
+# Release upload key and its passwords never go into git.
+/signing/

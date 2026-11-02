@@ -14,6 +14,15 @@ if (file('google-services.json').exists()) {
     apply plugin: 'com.google.firebase.crashlytics'
 }
 
+// Upload key for Play App Signing. signing/keystore.properties and the keystore are not in git;
+// without them release builds are produced unsigned.
+def releaseSigningFile = rootProject.file('signing/keystore.properties')
+def releaseSigning = null
+if (releaseSigningFile.exists()) {
+    releaseSigning = new Properties()
+    releaseSigningFile.withInputStream { releaseSigning.load(it) }
+}
+
 // Switch for the HHM company build; see gradle.properties.
 def hhmEnabled = providers.gradleProperty('qrgenerator.hhm.enabled')
         .map { it.toBoolean() }
@@ -52,10 +61,25 @@ android {
         }
     }
 
+    signingConfigs {
+        if (releaseSigning != null) {
+            release {
+                storeFile rootProject.file(releaseSigning['storeFile'])
+                storePassword releaseSigning['storePassword']
+                keyAlias releaseSigning['keyAlias']
+                keyPassword releaseSigning['keyPassword']
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (releaseSigning != null) {
+                signingConfig signingConfigs.release
+            }
         }
     }
     compileOptions {
