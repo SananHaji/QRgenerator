@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "144623212587",
+    "project_id": "qr-generator-41249",
+    "storage_bucket": "qr-generator-41249.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144623212587:android:97f3955b822f8ee9aaf26e",
+        "android_client_info": {
+          "package_name": "com.sananhaji.qrgenerator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMIJxHO52zcm4Yq8sx6Qj-8x-F2jaut40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144623212587:android:7bfa22f197fdf277aaf26e",
+        "android_client_info": {
+          "package_name": "com.sananhaji.qrgenerator.hhm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMIJxHO52zcm4Yq8sx6Qj-8x-F2jaut40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

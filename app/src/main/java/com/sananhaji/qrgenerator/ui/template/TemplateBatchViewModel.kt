@@ -7,6 +7,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.sananhaji.qrgenerator.analytics.AnalyticsEvent
+import com.sananhaji.qrgenerator.analytics.AppAnalytics
+import com.sananhaji.qrgenerator.analytics.FirebaseAppAnalytics
 import com.sananhaji.qrgenerator.flavor.FlavorConfig
 import com.sananhaji.qrgenerator.qr.export.QrGallerySaver
 import com.sananhaji.qrgenerator.qr.image.QrImageLoader
@@ -31,6 +34,8 @@ class TemplateBatchViewModel(
     private val renderer = QrRenderer(QrImageLoader(application))
 
     private val gallerySaver = QrGallerySaver(application)
+
+    private val analytics: AppAnalytics = FirebaseAppAnalytics(application)
 
     var input by mutableStateOf("")
         private set
@@ -65,6 +70,12 @@ class TemplateBatchViewModel(
         isBusy = true
         try {
             val saved = items.count { saveOne(it.code) }
+            analytics.log(
+                AnalyticsEvent.TemplateCodesSaved(
+                    templateId = template.id,
+                    count = saved,
+                ),
+            )
             return SaveSummary(
                 saved = saved,
                 total = items.size,
