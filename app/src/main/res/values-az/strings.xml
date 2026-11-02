@@ -5,6 +5,7 @@
     <string name="home_custom_title">Xüsusi QR</string>
     <string name="home_custom_description">Rənglər, formalar, mərkəzdə loqo və fon şəkli.</string>
     <string name="home_templates_title">Şablonlar</string>
+    <string name="home_privacy_policy">Məxfilik siyasəti</string>
     <string name="home_template_description">ID yaz — dizayn və link avtomatik doldurulur.</string>
 
     <string name="editor_title_simple">Sadə QR</string>

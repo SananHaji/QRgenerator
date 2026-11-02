@@ -11,8 +11,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sananhaji.qrgenerator.R
@@ -23,12 +25,17 @@ private val SCREEN_PADDING = 16.dp
 
 private val SPACING = 16.dp
 
+/** Google Play requires the privacy policy to be reachable from inside the app, not only from the listing. */
+private const val PRIVACY_POLICY_URL = "https://sananhaji.github.io/QRgenerator/privacy-policy.html"
+
 @Composable
 fun HomeScreen(
     onSimple: () -> Unit,
     onCustom: () -> Unit,
     onTemplate: (QrTemplate) -> Unit,
 ) {
+    val uriHandler = LocalUriHandler.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,6 +70,9 @@ fun HomeScreen(
                     onClick = { onTemplate(template) },
                 )
             }
+        }
+        TextButton(onClick = { uriHandler.openUri(PRIVACY_POLICY_URL) }) {
+            Text(stringResource(R.string.home_privacy_policy))
         }
     }
 }
