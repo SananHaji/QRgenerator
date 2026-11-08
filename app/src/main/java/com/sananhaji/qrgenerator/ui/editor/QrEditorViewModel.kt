@@ -16,6 +16,7 @@ import com.sananhaji.qrgenerator.qr.image.QrImageLoader
 import com.sananhaji.qrgenerator.qr.model.QrStyle
 import com.sananhaji.qrgenerator.qr.model.QrStylePresets
 import com.sananhaji.qrgenerator.qr.render.QrRenderer
+import com.sananhaji.qrgenerator.review.ReviewEligibility
 import com.sananhaji.qrgenerator.ui.common.QrFileName
 import com.sananhaji.qrgenerator.ui.common.QrPreviewState
 import com.sananhaji.qrgenerator.ui.common.QrRenderSizes
@@ -37,6 +38,8 @@ class QrEditorViewModel(application: Application) : AndroidViewModel(application
     private val gallerySaver = QrGallerySaver(application)
 
     private val analytics: AppAnalytics = FirebaseAppAnalytics(application)
+
+    private val reviewEligibility = ReviewEligibility(application)
 
     var content by mutableStateOf("")
         private set
@@ -77,11 +80,19 @@ class QrEditorViewModel(application: Application) : AndroidViewModel(application
         gallerySaver.save(
             bitmap = bitmap,
             name = QrFileName.timestamped(),
-        ).also { saved -> if (saved) analytics.log(AnalyticsEvent.QrSaved(style)) }
+        ).also { saved -> if (saved) onSaved() }
     }
+
+    /** True once, when it is time to show the Play rating sheet after a save. */
+    fun takeReviewRequest(): Boolean = reviewEligibility.takeReviewRequest()
 
     suspend fun exportForShare(): Bitmap? = runBusy {
         exportBitmap()?.also { analytics.log(AnalyticsEvent.QrShared(style)) }
+    }
+
+    private fun onSaved() {
+        analytics.log(AnalyticsEvent.QrSaved(style))
+        reviewEligibility.recordSave()
     }
 
     private suspend fun exportBitmap(): Bitmap? =
