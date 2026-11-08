@@ -1,0 +1,36 @@
+TITLE:
+QR Kod Oluşturucu: Logo, Renk
+SHORT:
+Logolu, renkli ve fotoğraflı QR kod oluşturun. Reklamsız, üyeliksiz, çevrimdışı.
+FULL:
+Her bağlantı veya metin için saniyeler içinde QR kod oluşturun — sade siyah beyaz ya da kendi logonuz, renkleriniz ve arka plan fotoğrafınızla.
+
+QR Generator reklamsız, üyeliksiz ve filigransız basit bir QR kod oluşturucudur. Kodlar statiktir, süresi dolmaz ve her zaman çalışır.
+
+★ SADE QR KOD
+Bağlantıyı yapıştırın veya metin yazın, klasik QR kod hemen hazır. Galeriye kaydedin veya tek dokunuşla paylaşın.
+
+★ LOGOLU ÖZEL QR KOD
+• Ortaya logonuzu veya herhangi bir resmi ekleyin, boyutunu ve şeklini ayarlayın
+• Kodun arkasına fotoğraf koyun — gözler okunur kalır, kod taranır
+• Kod, göz çerçevesi, göz merkezi ve arka plan için ayrı renkler
+• Çıkartma ve tasarımlar için şeffaf arka plan
+• Piksel şekilleri: kare, yuvarlak, daire, elmas, yıldız ve çizgiler
+• Göz şekilleri: kare, yuvarlak veya daire
+• Kodun etrafındaki boşluğu ayarlayın
+
+★ BASKIYA HAZIR
+Her QR kod Pictures/QRCodeGenerator klasörüne 1024 × 1024 PNG olarak kaydedilir — el ilanı, kartvizit, menü, afiş ve çıkartmalar için.
+
+★ KULLANIM ALANLARI
+• Instagram, TikTok, Facebook ve YouTube profil bağlantıları
+• WhatsApp ve Telegram bağlantıları
+• Restoran ve kafe menüleri
+• Web sitesi, online mağaza ve Google Haritalar bağlantıları
+• Davetiyeler, sunumlar ve afişler
+• Her türlü metin veya not
+
+★ GİZLİ VE ÇEVRİMDIŞI
+Üyelik ve reklam yok. QR kodlar telefonunuzda oluşturulur ve internetsiz çalışır. Metinleriniz ve resimleriniz cihazınızda kalır.
+
+Kendi QR kodunuzu şimdi oluşturun: uygulamayı açın, bağlantıyı yapıştırın, logonuzu ekleyin ve kaydedin.

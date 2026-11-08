@@ -1,6 +1,7 @@
 package com.sananhaji.qrgenerator.ui.editor
 
 import android.net.Uri
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -48,6 +49,7 @@ import com.sananhaji.qrgenerator.flavor.FlavorConfig
 import com.sananhaji.qrgenerator.qr.export.QrSharer
 import com.sananhaji.qrgenerator.qr.image.QrImageSource
 import com.sananhaji.qrgenerator.qr.model.QrStylePresets
+import com.sananhaji.qrgenerator.review.InAppReviewLauncher
 import com.sananhaji.qrgenerator.ui.common.LoadingOverlay
 import com.sananhaji.qrgenerator.ui.common.QrPreviewImage
 import com.sananhaji.qrgenerator.ui.common.QrPreviewState
@@ -78,6 +80,8 @@ fun QrEditorScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val storageAccess = rememberStorageWriteAccess()
     val sharer = remember(context) { QrSharer(context) }
+    val activity = LocalActivity.current
+    val reviewLauncher = remember(activity) { activity?.let(::InAppReviewLauncher) }
     val preview by viewModel.preview.collectAsState()
     var customizing by rememberSaveable { mutableStateOf(startCustomizing) }
 
@@ -158,6 +162,7 @@ fun QrEditorScreen(
                             }
                             scope.launch {
                                 val saved = viewModel.saveToGallery()
+                                if (saved && viewModel.takeReviewRequest()) reviewLauncher?.launch()
                                 snackbarHostState.showSnackbar(if (saved) savedMessage else failedMessage)
                             }
                         },

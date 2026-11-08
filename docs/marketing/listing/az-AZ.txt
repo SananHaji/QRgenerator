@@ -1,0 +1,39 @@
+TITLE:
+QR Kod Yaratmaq: Loqo və Rəng
+SHORT:
+Loqolu, rəngli və şəkilli QR kod yaradın. Reklamsız, qeydiyyatsız, oflayn.
+FULL:
+İstənilən link və ya mətn üçün bir neçə saniyəyə QR kod yaradın — sadə ağ-qara, ya da öz loqonuz, rəngləriniz və arxa fon şəkli ilə.
+
+QR Generator reklamsız, qeydiyyatsız və su nişanı olmayan sadə QR kod yaratma tətbiqidir. Kodlar statikdir, ona görə vaxtı bitmir və həmişə işləyir.
+
+★ SADƏ QR KOD
+Linki yapışdırın və ya mətn yazın, klassik QR kod dərhal hazırdır. Qalereyaya yadda saxlayın və ya bir toxunuşla paylaşın.
+
+★ LOQOLU XÜSUSİ QR KOD
+• Mərkəzə loqonuzu və ya istənilən şəkli qoyun, ölçüsünü və formasını seçin
+• Kodun arxasına foto qoyun — gözlər oxunaqlı qalır, kod skan olunur
+• Kod, göz çərçivəsi, göz mərkəzi və fon üçün ayrı rənglər
+• Stikerlər və dizayn üçün şəffaf fon
+• Piksel formaları: kvadrat, yumru, dairə, romb, ulduz və xətlər
+• Göz formaları: kvadrat, yumru və ya dairə
+• Kodun ətrafındakı boşluğu tənzimləyin
+
+★ ÇAP ÜÇÜN HAZIR
+Hər QR kod Pictures/QRCodeGenerator qovluğuna 1024 × 1024 PNG kimi yadda saxlanır — flayer, vizit kartı, menyu, afişa və stikerlər üçün.
+
+★ NƏ ÜÇÜN İSTİFADƏ ETMƏK OLAR
+• Instagram, TikTok, Facebook və YouTube profil linkləri
+• WhatsApp və Telegram linkləri
+• Restoran və kafe menyuları
+• Sayt, onlayn mağaza və Google Maps linkləri
+• Tədbir dəvətnamələri, slaydlar və afişalar
+• İstənilən mətn və ya qeyd
+
+★ MƏXFİ VƏ OFLAYN
+Qeydiyyat və reklam yoxdur. QR kodlar telefonunuzda yaradılır və internetsiz işləyir. Mətn və şəkilləriniz cihazınızda qalır.
+
+★ AZƏRBAYCAN DİLİNDƏ
+Tətbiq Azərbaycan dilindədir. ə, ğ, ı, ö, ş, ü, ç hərfləri olan mətnlər düzgün kodlanır.
+
+Öz QR kodunuzu indi yaradın: tətbiqi açın, linki yapışdırın, loqonu əlavə edin və yadda saxlayın.

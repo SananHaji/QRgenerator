@@ -1,0 +1,36 @@
+TITLE:
+Generador de QR: Logo y Color
+SHORT:
+Crea códigos QR con tu logo, colores, formas y una foto de fondo. Sin anuncios.
+FULL:
+Crea un código QR para cualquier enlace o texto en segundos: clásico en blanco y negro, o con tu propio logo, colores e imagen de fondo.
+
+QR Generator es un creador de códigos QR sencillo, sin anuncios, sin cuenta y sin marca de agua. Los códigos son estáticos: no caducan y funcionan para siempre.
+
+★ CÓDIGO QR SIMPLE
+Pega un enlace o escribe un texto y obtén tu código QR al instante. Guárdalo en la galería o compártelo con un toque.
+
+★ CÓDIGO QR PERSONALIZADO CON LOGO
+• Añade tu logo o cualquier imagen en el centro y ajusta su tamaño y forma
+• Pon una foto detrás del código: los ojos siguen legibles y el código se escanea
+• Colores separados para el código, los marcos, los centros de los ojos y el fondo
+• Fondo transparente para stickers y diseños
+• Formas de píxel: cuadrado, redondeado, círculo, rombo, estrella y líneas
+• Formas de ojos: cuadrado, redondeado o círculo
+• Ajusta el margen alrededor del código
+
+★ LISTO PARA IMPRIMIR
+Cada código QR se guarda como PNG nítido de 1024 × 1024 en Pictures/QRCodeGenerator, listo para volantes, tarjetas de presentación, menús, carteles y stickers.
+
+★ ÚSALO PARA
+• Perfiles de Instagram, TikTok, Facebook y YouTube
+• Enlaces de WhatsApp y Telegram
+• Menús de restaurantes y cafeterías
+• Sitios web, tiendas online y Google Maps
+• Invitaciones, presentaciones y carteles
+• Cualquier texto o nota
+
+★ PRIVADO Y SIN CONEXIÓN
+Sin registro y sin anuncios. Los códigos QR se crean en tu teléfono y funcionan sin internet. Tus textos e imágenes se quedan en tu dispositivo.
+
+Crea tu código QR ahora: abre la app, pega tu enlace, añade tu logo y guarda.

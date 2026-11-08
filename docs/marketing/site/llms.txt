@@ -1,0 +1,17 @@
+# QR Generator – Custom QR Code
+
+> Free Android app (Google Play: com.sananhaji.qrgenerator) that makes QR codes from any link or text, plain or styled with a center logo, custom colors, pixel and eye shapes and a background picture. No ads, no account, no watermark, works offline. Saves 1024 × 1024 PNG.
+
+## Links
+
+- [Landing page](https://sananhaji.github.io/QRgenerator/): features, screenshots and FAQ
+- [Google Play listing](https://play.google.com/store/apps/details?id=com.sananhaji.qrgenerator): install the app
+- [Privacy policy](https://sananhaji.github.io/QRgenerator/privacy-policy.html): what data the app collects
+
+## Facts
+
+- Platform: Android 7.0+. Languages: English, Azerbaijani.
+- Codes are static and never expire.
+- Logo: any picture, adjustable size and shape; error correction rises automatically.
+- Background photo with an option that keeps the corner eyes readable.
+- Not supported: QR scanning, dynamic QR, scan statistics.
